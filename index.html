@@ -1,0 +1,417 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Our Wishlist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fff4f6;--surface:#fff;--ink:#3a2236;--muted:#86697f;--accent:#e8457c;--accent-ink:#fff;--line:#f6d3df;--soft:#ffe6ee;
+  --c1:#ffd6e3;--c2:#e5dbff;--c3:#fff0b3;--c4:#cbefe0;--c5:#d3e7ff;--c6:#ffdfca;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){--bg:#1f1420;--surface:#2c1d2c;--ink:#fbeaf1;--muted:#c4a5ba;--accent:#ff6b9d;--accent-ink:#2a0f1d;--line:#4a2f47;--soft:#3b2539;
+  --c1:#5a2b3f;--c2:#3f3463;--c3:#5e5126;--c4:#2a5043;--c5:#2c4666;--c6:#5d3c2a}
+}
+:root[data-theme="dark"]{--bg:#1f1420;--surface:#2c1d2c;--ink:#fbeaf1;--muted:#c4a5ba;--accent:#ff6b9d;--accent-ink:#2a0f1d;--line:#4a2f47;--soft:#3b2539;
+  --c1:#5a2b3f;--c2:#3f3463;--c3:#5e5126;--c4:#2a5043;--c5:#2c4666;--c6:#5d3c2a}
+html,body{height:auto}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 1rem/1.5 Nunito,system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:720px;margin:0 auto;padding:28px 18px 80px}
+h1{font:600 clamp(2.2rem,8vw,3.1rem)/1.05 Fredoka,Nunito,system-ui,sans-serif;margin:8px 0 6px;letter-spacing:-.01em}
+.sub{margin:0 0 22px;color:var(--muted);font-size:1.05rem}
+.panel{background:var(--surface);border:2px solid var(--line);border-radius:28px;padding:20px;box-shadow:0 7px 0 var(--line)}
+label{display:block;font-weight:700;font-size:.92rem;margin:14px 0 6px}
+label.big{font:600 1.2rem Fredoka,Nunito,sans-serif;margin:0 0 8px}
+input{width:100%;font:inherit;color:var(--ink);background:var(--bg);border:2px solid var(--line);border-radius:16px;padding:12px 14px;min-width:0}
+input#url{font-size:1.1rem;padding:15px 16px;border-radius:999px}
+input::placeholder{color:var(--muted);opacity:.7}
+input:focus-visible,button:focus-visible,a:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.row{display:grid;grid-template-columns:1fr 1.6fr;gap:12px}
+@media (max-width:480px){.row{grid-template-columns:1fr}}
+button{font:inherit;cursor:pointer;border:0;color:inherit}
+.primary{width:100%;margin-top:18px;background:var(--accent);color:var(--accent-ink);font:600 1.15rem Fredoka,Nunito,sans-serif;padding:15px;border-radius:999px;box-shadow:0 5px 0 rgba(0,0,0,.18);transition:transform .08s,box-shadow .08s}
+.primary:active{transform:translateY(4px);box-shadow:0 1px 0 rgba(0,0,0,.18)}
+.primary:disabled{opacity:.55;cursor:not-allowed}
+.hint{min-height:1.4em;margin:10px 2px 0;color:var(--accent);font-weight:600;font-size:.92rem}
+.bar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;margin:34px 0 16px}
+.tabs{display:flex;gap:6px;background:var(--soft);padding:5px;border-radius:999px}
+.tab{background:transparent;padding:8px 14px;border-radius:999px;font-weight:700;font-size:.92rem;color:var(--muted)}
+.tab[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:0 2px 0 var(--line)}
+#stat{color:var(--muted);font-weight:600;font-size:.92rem}
+#list{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:16px}
+.card{position:relative;background:var(--surface);border:2px solid var(--line);border-radius:24px;padding:16px;display:flex;flex-direction:column;gap:12px}
+.card.top{border-color:var(--accent)}
+.card.got{opacity:.72}
+.head{display:flex;gap:14px;align-items:flex-start}
+.tile{flex:none;width:58px;height:58px;border-radius:18px;display:grid;place-items:center;font-size:1.9rem}
+.title{font:600 1.12rem/1.25 Fredoka,Nunito,sans-serif;margin:0;overflow-wrap:anywhere}
+.card.got .title{text-decoration:line-through;text-decoration-thickness:2px}
+.meta{margin:2px 0 0;color:var(--muted);font-size:.88rem;overflow-wrap:anywhere}
+.price{display:inline-block;background:var(--soft);border-radius:999px;padding:1px 10px;font-weight:700;color:var(--ink);margin-right:6px}
+.note{margin:0;background:var(--bg);border-radius:14px;padding:8px 12px;font-size:.93rem;overflow-wrap:anywhere}
+.badge{align-self:flex-start;background:var(--c4);border-radius:999px;padding:2px 12px;font-weight:700;font-size:.85rem}
+.acts{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:auto}
+.open{background:var(--accent);color:var(--accent-ink);text-decoration:none;font-weight:700;padding:9px 16px;border-radius:999px}
+.ghost{background:var(--soft);font-weight:700;font-size:.88rem;padding:9px 13px;border-radius:999px}
+.ghost.warn{background:var(--accent);color:var(--accent-ink)}
+.icon{width:40px;height:40px;border-radius:50%;background:var(--soft);font-size:1.15rem;color:var(--muted);line-height:1}
+.icon.on{background:var(--accent);color:var(--accent-ink)}
+.sp{flex:1}
+.empty{grid-column:1/-1;text-align:center;color:var(--muted);padding:34px 10px;font-weight:600}
+#toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translate(-50%,30px);opacity:0;pointer-events:none;background:var(--ink);color:var(--bg);padding:11px 18px;border-radius:999px;font-weight:700;max-width:92vw;text-align:center;transition:opacity .2s,transform .2s;z-index:9}
+#toast.show{opacity:1;transform:translate(-50%,0)}
+.banner{background:var(--c3);border-radius:18px;padding:12px 16px;margin:0 0 16px;font-weight:600;color:var(--ink)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<main>
+  <h1>Our wishlist 💝</h1>
+  <p class="sub">Found something you love? Paste the link below and it lands here.</p>
+  <div id="banner" hidden></div>
+
+  <form id="add" class="panel" autocomplete="off">
+    <label class="big" for="url">Paste a link to something you want</label>
+    <input id="url" type="text" inputmode="url" placeholder="https://…">
+    <label for="name">What is it?</label>
+    <input id="name" maxlength="100" placeholder="Fills in by itself. Change it if you like">
+    <div class="row">
+      <div><label for="price">Price (optional)</label><input id="price" maxlength="24" placeholder="$25"></div>
+      <div><label for="note">Note (optional)</label><input id="note" maxlength="200" placeholder="Size, color, why you love it"></div>
+    </div>
+    <button class="primary" id="addBtn" type="submit">Add to wishlist 💖</button>
+    <p class="hint" id="formMsg" role="alert"></p>
+  </form>
+
+  <div class="bar">
+    <div class="tabs" role="group" aria-label="Show">
+      <button class="tab" type="button" data-tab="open" aria-pressed="true">Still wishing</button>
+      <button class="tab" type="button" data-tab="got" aria-pressed="false">Got it</button>
+      <button class="tab" type="button" data-tab="all" aria-pressed="false">Everything</button>
+    </div>
+    <span id="stat"></span>
+  </div>
+  <div id="list" aria-live="polite"></div>
+</main>
+<div id="toast" role="status"></div>
+
+<script>
+(function(){
+  var $ = function(s){ return document.querySelector(s); };
+  var STORAGE_KEY = 'our-wishlist-v1';
+  var items = [];
+  var tab = 'open';
+  var nameTouched = false;
+  var armed = {};
+  var tileVars = ['--c1','--c2','--c3','--c4','--c5','--c6'];
+
+  function load(){
+    try {
+      var raw = localStorage.getItem(STORAGE_KEY);
+      var parsed = raw ? JSON.parse(raw) : [];
+      items = Array.isArray(parsed) ? parsed : [];
+    } catch(e) {
+      items = [];
+    }
+  }
+
+  function save(){
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+    } catch(e) {
+      toast('Could not save the wishlist in this browser.');
+    }
+  }
+
+  function el(tag, attrs){
+    var e = document.createElement(tag);
+    attrs = attrs || {};
+    Object.keys(attrs).forEach(function(k){
+      var v = attrs[k];
+      if (v === false || v == null) return;
+      if (k === 'class') e.className = v;
+      else if (k.indexOf('on') === 0) e.addEventListener(k.slice(2), v);
+      else e.setAttribute(k, v);
+    });
+    for (var i = 2; i < arguments.length; i++) {
+      if (arguments[i] != null) e.append(arguments[i]);
+    }
+    return e;
+  }
+
+  function hash(s){
+    var h = 0;
+    for (var i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) >>> 0;
+    return h;
+  }
+
+  function safeUrl(raw){
+    raw = String(raw || '').trim();
+    if (!raw) return null;
+    var m = raw.match(/https?:\/\/[^\s]+/i);
+    if (m) raw = m[0];
+    else if (/\s/.test(raw)) return null;
+    else if (!/^[a-z][a-z0-9+.\-]*:\/\//i.test(raw)) raw = 'https://' + raw;
+    try {
+      var u = new URL(raw);
+      if (!/^https?:$/.test(u.protocol) || u.hostname.indexOf('.') < 0) return null;
+      return u;
+    } catch(e) {
+      return null;
+    }
+  }
+
+  function guessTitle(u){
+    var skip = /^(dp|gp|p|ip|s|itm|product|products|item|items|shop|collections|catalog|en|en-ca|en-us|ca|us)$/i;
+    var best = '';
+    u.pathname.split('/').forEach(function(seg){
+      try { seg = decodeURIComponent(seg); } catch(e) {}
+      seg = seg.replace(/\.(html?|php|aspx?)$/i, '');
+      if (!seg || skip.test(seg) || !/[a-z]/i.test(seg)) return;
+      if (/^[a-z0-9]{8,}$/i.test(seg) && /\d/.test(seg) && !/[-_]/.test(seg)) return;
+      if (seg.length > best.length) best = seg;
+    });
+    var words = best.replace(/[-_+]+/g, ' ').split(' ').filter(function(w){
+      return w && !/^\d{6,}$/.test(w) && !(/\d/.test(w) && /[a-z]/i.test(w) && w.length >= 8);
+    });
+    var t = words.map(function(w){
+      return w.charAt(0).toUpperCase() + w.slice(1).toLowerCase();
+    }).join(' ');
+    return t.slice(0, 80);
+  }
+
+  var emojiMap = [
+    [/shoe|sneaker|boot|sandal|heel/, '👟'],
+    [/book|novel|journal|planner/, '📚'],
+    [/dress|shirt|hoodie|jacket|sweater|jeans|skirt|coat|pants|legging|sock/, '👗'],
+    [/bag|purse|tote|backpack|wallet/, '👜'],
+    [/ring|necklace|earring|bracelet|jewel|pendant/, '💍'],
+    [/candle|perfume|fragrance|scent|diffuser/, '🕯️'],
+    [/makeup|lipstick|skincare|serum|cream|lotion|mascara|palette|blush|gloss/, '💄'],
+    [/headphone|airpod|earbud|speaker/, '🎧'],
+    [/phone|iphone|laptop|ipad|tablet|camera|watch|kindle/, '📱'],
+    [/plush|teddy|squish|stuffed|blanket|pillow|robe|pajama|slipper/, '🧸'],
+    [/plant|flower|bouquet|vase/, '🌷'],
+    [/mug|cup|tea|coffee|bottle|tumbler|stanley/, '☕'],
+    [/game|switch|playstation|xbox|console/, '🎮'],
+    [/lego|puzzle|craft|paint|art/, '🎨'],
+    [/ticket|concert|trip|flight|hotel/, '🎟️']
+  ];
+
+  function emojiFor(t){
+    t = String(t || '').toLowerCase();
+    for (var i = 0; i < emojiMap.length; i++) {
+      if (emojiMap[i][0].test(t)) return emojiMap[i][1];
+    }
+    return '🎁';
+  }
+
+  var toastTimer;
+  function toast(msg){
+    var t = $('#toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function(){ t.classList.remove('show'); }, 3200);
+  }
+
+  function findItem(id){
+    return items.find(function(it){ return it.id === id; });
+  }
+
+  function card(it){
+    var u = safeUrl(it.url);
+    var host = u ? u.hostname.replace(/^www\./, '') : '';
+    var tile = el('div', { class: 'tile', 'aria-hidden': 'true' }, emojiFor(it.title));
+    tile.style.background = 'var(' + tileVars[hash(host || String(it.title || '')) % 6] + ')';
+
+    var meta = el('p', { class: 'meta' });
+    if (it.price) meta.append(el('span', { class: 'price' }, String(it.price)));
+    meta.append(host || 'No link');
+
+    var head = el('div', { class: 'head' }, tile,
+      el('div', null,
+        el('h3', { class: 'title' }, String(it.title || 'Untitled')),
+        meta
+      )
+    );
+
+    var acts = el('div', { class: 'acts' });
+
+    if (u) {
+      acts.append(el('a', {
+        class: 'open',
+        href: u.href,
+        target: '_blank',
+        rel: 'noopener noreferrer'
+      }, 'Open link'));
+    }
+
+    acts.append(el('button', {
+      type: 'button',
+      class: 'ghost',
+      onclick: function(){
+        var found = findItem(it.id);
+        if (!found) return;
+        found.got = !found.got;
+        save();
+        render();
+      }
+    }, it.got ? 'Move back' : 'Mark as got'));
+
+    acts.append(el('span', { class: 'sp' }));
+
+    acts.append(el('button', {
+      type: 'button',
+      class: 'icon' + (it.top ? ' on' : ''),
+      'aria-pressed': String(!!it.top),
+      title: it.top ? 'Top pick' : 'Mark as a top pick',
+      'aria-label': 'Top pick',
+      onclick: function(){
+        var found = findItem(it.id);
+        if (!found) return;
+        found.top = !found.top;
+        save();
+        render();
+      }
+    }, '♥'));
+
+    var isArmed = !!armed[it.id];
+    acts.append(el('button', {
+      type: 'button',
+      class: 'ghost' + (isArmed ? ' warn' : ''),
+      onclick: function(){
+        if (armed[it.id]) {
+          delete armed[it.id];
+          items = items.filter(function(x){ return x.id !== it.id; });
+          save();
+          render();
+        } else {
+          armed[it.id] = true;
+          render();
+          setTimeout(function(){
+            if (armed[it.id]) {
+              delete armed[it.id];
+              render();
+            }
+          }, 3000);
+        }
+      }
+    }, isArmed ? 'Tap again to remove' : 'Remove'));
+
+    var c = el('article', {
+      class: 'card' + (it.top ? ' top' : '') + (it.got ? ' got' : '')
+    }, head);
+
+    if (it.got) c.append(el('span', { class: 'badge' }, 'Got it 🎀'));
+    if (it.note) c.append(el('p', { class: 'note' }, String(it.note)));
+    c.append(acts);
+
+    return c;
+  }
+
+  function render(){
+    var openN = items.filter(function(i){ return !i.got; }).length;
+    $('#stat').textContent = items.length
+      ? openN + ' to go, ' + (items.length - openN) + ' got'
+      : '';
+
+    document.querySelectorAll('.tab').forEach(function(b){
+      b.setAttribute('aria-pressed', String(b.dataset.tab === tab));
+    });
+
+    var list = $('#list');
+    list.replaceChildren();
+
+    var shown = items.filter(function(i){
+      return tab === 'all' || (tab === 'got') === !!i.got;
+    });
+
+    shown.sort(function(a, b){
+      return (b.top ? 1 : 0) - (a.top ? 1 : 0);
+    });
+
+    if (!shown.length) {
+      var msg = tab === 'got'
+        ? 'Nothing marked as got yet.'
+        : tab === 'all'
+          ? 'Nothing here yet. Paste your first link above 💌'
+          : 'Nothing on the list yet. Paste a link above to add your first wish 💌';
+      list.append(el('p', { class: 'empty' }, msg));
+      return;
+    }
+
+    shown.forEach(function(it){ list.append(card(it)); });
+  }
+
+  document.querySelectorAll('.tab').forEach(function(b){
+    b.addEventListener('click', function(){
+      tab = b.dataset.tab;
+      render();
+    });
+  });
+
+  $('#url').addEventListener('input', function(){
+    var u = safeUrl(this.value);
+    $('#formMsg').textContent = '';
+    if (u && !nameTouched) $('#name').value = guessTitle(u);
+  });
+
+  $('#name').addEventListener('input', function(){
+    nameTouched = this.value.length > 0;
+  });
+
+  $('#add').addEventListener('submit', function(ev){
+    ev.preventDefault();
+
+    var msg = $('#formMsg');
+    var u = safeUrl($('#url').value);
+
+    if (!u) {
+      msg.textContent = "That doesn't look like a link yet. Copy the page address from the store and paste it here.";
+      return;
+    }
+
+    var host = u.hostname.replace(/^www\./, '');
+    var title = $('#name').value.trim() || guessTitle(u) || ('Something from ' + host);
+
+    var data = {
+      id: Date.now().toString(36) + Math.random().toString(36).slice(2),
+      url: u.href.slice(0, 2000),
+      title: title.slice(0, 100),
+      price: $('#price').value.trim().slice(0, 24),
+      note: $('#note').value.trim().slice(0, 200),
+      top: false,
+      got: false,
+      createdAt: Date.now()
+    };
+
+    var btn = $('#addBtn');
+    btn.disabled = true;
+    msg.textContent = '';
+
+    items.unshift(data);
+    save();
+
+    $('#add').reset();
+    nameTouched = false;
+    tab = 'open';
+    render();
+    toast('Added to the wishlist 💖');
+
+    btn.disabled = false;
+  });
+
+  load();
+  render();
+})();
+</script>
+</body>
+</html>
